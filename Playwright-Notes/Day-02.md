@@ -59,3 +59,45 @@ Neither is “magic,” but Playwright’s defaults reduce timing flakes **when 
 
 **Q5. What happens if an element never becomes clickable?**  
 **A.** Playwright **times out**: the action throws, the test **fails**, and you get an error (timeout / strict mode violation). Fix locators, timing assumptions, or app bugs.
+
+---
+
+## Code Explanation
+
+*Walkthrough of `tests/day2.spec.ts` — plain language, interview-ready.*
+
+### What this test does (big picture)
+
+The test opens the Playwright marketing site home page, clicks the **Docs** link in the main navigation, then checks that the URL looks like a docs page and that the main content mentions **Installation**. That proves **navigation works** the way a user would expect.
+
+### What `test()` does
+
+`test('title', async () => { ... })` **registers one scenario** with the Playwright Test runner. The string is the **test name** (shown in reports). The runner executes the async function body, counts pass/fail, and can run many tests in parallel. `test.describe(...)` groups related tests under one heading without changing that idea—each inner `test(...)` is still one case.
+
+### What `page` is
+
+`page` is **one browser tab**. In `async ({ page }) => { ... }`, the **`page` fixture** gives you a fresh tab managed by the runner (isolation between tests). You call `page.goto(...)`, create locators from `page`, and pass `page` into `expect(page)` for URL-level checks.
+
+### How `click` works here
+
+`await docsLink.click()` does **not** instantly poke the DOM. Playwright waits until the located element is **usable** (visible, stable, enabled, not covered), scrolls if needed, then sends **real pointer events**. So the click mimics a user and stays reliable across slower loads.
+
+### How Playwright finds elements
+
+The code chains locators:
+
+1. `page.getByRole('navigation', { name: 'Main' })` narrows to the **main nav** landmark users (and assistive tech) recognize.
+2. `.getByRole('link', { name: 'Docs', exact: true })` finds a **link** whose accessible name is exactly **Docs**.
+
+Playwright resolves these **when you act or assert**, using the accessibility tree and roles—not just raw CSS—so tests align with how the UI is labeled.
+
+### What auto-waiting is (in this file)
+
+- **`await docsLink.click()`**: auto-waits until the Docs link matches and is ready to click (or times out).
+- **`await expect(page).toHaveURL(/docs/)`** and **`await expect(...).toContainText(...)`**: Playwright **retries** these assertions until they pass or hit the assertion timeout.
+
+So you avoid sprinkling fixed `sleep()` calls; the runner polls until conditions hold.
+
+### What happens if the element is not found
+
+If no element matches the locator within the **action timeout**, **`click()` throws** (timeout error), the test **fails**, and you get a traceback and (per config) screenshots/traces. If **multiple** elements match and the locator is not unique, Playwright may throw a **strict mode violation** until you tighten the locator. Fix by improving selectors, waiting on the right state, or fixing UI bugs—not by arbitrary long sleeps.
