@@ -1,10 +1,6 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
-/**
- * Page object for home-level navigation flows.
- * Includes existing playwright.dev docs navigation (Day 2/3)
- * and automationexercise.com home actions (Day 4).
- */
+/** Home page actions for supported training sites. */
 export class HomePage {
   private static readonly automationExerciseUrl = 'https://automationexercise.com/';
 
@@ -30,7 +26,7 @@ export class HomePage {
     return this.page.locator('header');
   }
 
-  // Day 2/3 methods (playwright.dev)
+  // playwright.dev
   async navigateToHome(): Promise<void> {
     await this.page.goto('/');
   }
@@ -44,7 +40,7 @@ export class HomePage {
     await expect(this.mainContent()).toContainText('Installation');
   }
 
-  // Day 4 methods (automationexercise.com)
+  // automationexercise.com
   async openHomePage(): Promise<void> {
     await this.page.goto(HomePage.automationExerciseUrl);
   }

@@ -2,7 +2,7 @@
 
 ## How to reuse these prompts
 
-Copy a **Day N Prompt** block into Cursor (or any AI assistant) when you want a structured recap, deeper explanation, or help extending that day’s work. Paste the prompt as-is, or trim sections you do not need. You can also prepend your repo path or paste relevant files (`playwright.config.ts`, spec files) so answers stay accurate to your project.
+Copy a **Day N Prompt** block into your assistant when you want a structured recap, deeper explanation, or help extending that day’s work. Paste the prompt as-is, or trim sections you do not need. You can also prepend your repo path or paste relevant files (`playwright.config.ts`, spec files) so answers stay accurate to your project.
 
 ## When to use them
 
