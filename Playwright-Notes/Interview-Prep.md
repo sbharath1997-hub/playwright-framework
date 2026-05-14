@@ -499,6 +499,50 @@ Avoid `waitForTimeout` as it causes flakiness; prefer application-specific condi
 - **Test retries**: `retries: 2` to identify truly flaky vs broken tests
 - **Parallel execution control**: Run tests serially to isolate state issues
 
+### Q6: How do you prevent flaky tests caused by timing issues?
+**A:** Prevention strategies:
+- **Rely on auto-wait**: Let Playwright handle element readiness automatically
+- **Use stable selectors**: Prefer role-based or data-test-id selectors over brittle CSS/XPath
+- **Avoid hard waits**: Never use `waitForTimeout`; use condition-based waits instead
+- **Wait for application state**: Use `waitForFunction` for meaningful conditions, not just element presence
+- **Isolate test state**: Use fresh browser contexts to prevent shared state issues
+- **Mock external dependencies**: Intercept network calls to eliminate external variability
+
+### Q7: What is the difference between `waitUntil: 'load'` and `waitUntil: 'networkidle'` in `page.goto()`?
+**A:** 
+- **`'load'`**: Waits for the `load` event - page and all resources (images, stylesheets) are loaded
+- **`'networkidle'`**: Waits for network to be idle - no network connections for 500ms
+- **When to use `'load'`**: Most web applications; ensures basic page readiness
+- **When to use `'networkidle'`**: SPAs with heavy AJAX or real-time updates
+- **Caution with `'networkidle'`**: May wait too long for chatty apps (WebSocket, polling); can cause timeouts
+
+### Q8: How do you implement custom synchronization in Playwright tests?
+**A:** Custom synchronization approaches:
+- **waitForFunction**: `await page.waitForFunction(() => window.appReady === true)`
+- **waitForSelector with conditions**: `await page.waitForSelector('.spinner', { state: 'hidden' })`
+- **waitForResponse/Request**: Wait for specific API calls to complete
+- **Page.evaluate with polling**: Custom logic executed in browser context
+- **Combine waits**: Sequential waits for complex scenarios
+- **Best practice**: Wait for user-visible state changes, not internal implementation details
+
+### Q9: How do you handle synchronization in single-page applications (SPAs)?
+**A:** SPA synchronization strategies:
+- **Wait for route changes**: `await page.waitForURL('**/dashboard')`
+- **Wait for DOM updates**: `await page.waitForSelector('.dashboard-content')`
+- **Wait for API responses**: `await page.waitForResponse(response => response.url().includes('/api/user'))`
+- **Custom state checks**: `await page.waitForFunction(() => !window.loading)`
+- **Avoid over-waiting**: Use `waitUntil: 'domcontentloaded'` instead of `'networkidle'` for faster tests
+- **Mock API calls**: Use `page.route()` to simulate fast, predictable responses
+
+### Q10: What are the best practices for avoiding race conditions in Playwright tests?
+**A:** Race condition prevention:
+- **Sequential actions**: Ensure actions complete before starting next ones
+- **Proper awaiting**: Always await async operations, especially network calls
+- **State isolation**: Use separate contexts/pages for parallel tests
+- **Atomic operations**: Group related actions to avoid intermediate state issues
+- **Conditional waits**: Wait for previous action's effects before proceeding
+- **Test design**: Write tests that don't depend on specific timing between steps
+
 ---
 
 ## Quick Reference: Common Playwright Commands

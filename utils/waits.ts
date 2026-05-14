@@ -8,4 +8,8 @@ export class WaitHelpers {
   static async waitForElementVisible(locator: Locator) {
     await expect(locator).toBeVisible();
   }
+
+  static async waitForPageLoad(page: Page) {
+  await page.waitForLoadState('networkidle');
+}
 }
