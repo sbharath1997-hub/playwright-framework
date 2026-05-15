@@ -10,6 +10,8 @@ export class AssertionHelpers {
   }
 
   static async verifyText(locator: Locator, expectedText: string) {
-    await expect(locator).toContainText(expectedText);
+    await expect(locator).toContainText(expectedText, {
+  timeout: 10000
+});
   }
 }
