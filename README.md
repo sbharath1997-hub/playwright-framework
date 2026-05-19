@@ -109,7 +109,6 @@ This repository is being actively expanded with focus on:
 - CI/CD integration
 - Framework scalability
 - Debugging and flaky test prevention
-- SDET interview preparation
 
 ---
 
