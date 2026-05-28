@@ -17,10 +17,17 @@ test.describe('Day 5 — data-driven login validation', () => {
       await loginPage.loginWithCredentials(dataset.email, dataset.password);
 
       if (dataset.expectedOutcome === 'empty_required_fields') {
-        await loginPage.verifyRequiredFieldValidationForEmptyCredentials();
-      } else {
-        await loginPage.verifyInvalidLoginError(dataset.expectedErrorMessage!);
-      }
+  console.log('Validating required field behavior');
+
+  await loginPage.verifyRequiredFieldValidationForEmptyCredentials();
+
+} else {
+  console.log(`Validating invalid login error for: ${dataset.email}`);
+
+  await loginPage.verifyInvalidLoginError(
+    dataset.expectedErrorMessage!
+  );
+}
     });
   }
 });
