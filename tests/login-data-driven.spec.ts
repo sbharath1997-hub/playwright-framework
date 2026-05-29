@@ -3,7 +3,7 @@ import { HomePage } from '../pages/homePage';
 import { LoginPage } from '../pages/loginPage';
 import { invalidLoginDatasets } from '../test-data/loginData';
 
-test.describe('Day 5 — data-driven login validation', () => {
+test.describe('@regression Day 5 — data-driven login validation', () => {
   for (const dataset of invalidLoginDatasets) {
     test(`shows login error for ${dataset.name}`, async ({ page }) => {
       const homePage = new HomePage(page);

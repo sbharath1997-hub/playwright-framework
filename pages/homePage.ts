@@ -1,8 +1,9 @@
 import { expect, type Locator, type Page } from '@playwright/test';
+import { Environment } from '../config/environment';
 
 /** Home page actions for supported training sites. */
 export class HomePage {
-  private static readonly automationExerciseUrl = 'https://automationexercise.com/';
+  
 
   constructor(private readonly page: Page) {}
 
@@ -42,7 +43,7 @@ export class HomePage {
 
   // automationexercise.com
   async openHomePage(): Promise<void> {
-    await this.page.goto(HomePage.automationExerciseUrl);
+    await this.page.goto(Environment.automationExerciseUrl);
   }
 
   async verifyHomePageLoaded(): Promise<void> {
