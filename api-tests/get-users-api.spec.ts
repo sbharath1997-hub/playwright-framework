@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('API Testing - GET Users', () => {
+test.describe('@api API Testing - GET Users', () => {
   test('should fetch users successfully', async ({ request }) => {
 
     const response = await request.get('https://jsonplaceholder.typicode.com/users');

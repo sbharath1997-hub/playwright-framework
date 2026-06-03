@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('API Testing - Validate User', () => {
+test.describe('@api @regression API Testing - Validate User', () => {
   test('should validate user response structure and data', async ({ request }) => {
     const response = await request.get('https://jsonplaceholder.typicode.com/users/1');
 

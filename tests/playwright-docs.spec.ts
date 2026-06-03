@@ -4,7 +4,7 @@ import { HomePage } from '../pages/homePage';
 /**
  * Day 2 / 3 — navigation on playwright.dev via Page Object Model.
  */
-test.describe('Day 2 — playwright.dev navigation', () => {
+test.describe('@smoke Day 2 — playwright.dev navigation', () => {
   test('Docs link opens docs content with Installation', async ({ page }) => {
     const homePage = new HomePage(page);
 

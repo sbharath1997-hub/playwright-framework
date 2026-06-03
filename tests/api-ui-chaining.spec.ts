@@ -3,7 +3,7 @@ import createUser from '../api-utils/createUser';
 import { HomePage } from '../pages/homePage';
 import { LoginPage } from '../pages/loginPage';
 
-test.describe('@smoke API + UI chaining', () => {
+test.describe('@regression API + UI chaining', () => {
 
   test('create user via API and use data in UI flow', async ({ request, page }) => {
 
