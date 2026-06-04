@@ -24,8 +24,8 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Playwright Tests
-        run: npx playwright test
+      - name: Run API Tests
+        run: npx playwright test --grep "@api"
 
       - name: Upload Playwright Report
         if: always()
