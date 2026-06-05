@@ -2,59 +2,94 @@
 
 ## Purpose of Tags
 
-- Tags categorize tests by intent, speed, or layer.
-- They make it easy to run only relevant tests during development or CI.
-- Good tags keep large suites organized and fast to execute.
+- Tags group tests by intent, speed, or feature area.
+- They make it easy to run only relevant tests during development, debugging, or CI.
+- Good tagging improves suite organization and keeps feedback fast.
 
-## `@smoke`, `@regression`, and `@api`
+## Tag Categories
 
-- `@smoke`: critical, fast checks for core application flows.
-- `@regression`: broader coverage to catch bugs after changes.
-- `@api`: tests focused on API endpoints or backend behavior.
-- Use the right tag for the test’s purpose, not just its location.
+- `@smoke`: critical, fast checks of core application behavior.
+- `@regression`: broader coverage for verifying existing functionality after changes.
+- `@api`: backend-focused checks.
+- `@ui`, `@critical`, `@slow`: use consistently for clarity and filtering.
+
+## Writing Tagged Tests
+
+- Keep tags consistent in names and suite descriptions.
+- Use `test.describe` or test titles to make intent clear.
+
+Example:
+
+```ts
+import { test } from '@playwright/test';
+
+test.describe('login', () => {
+  test('smoke: can sign in', async ({ page }) => {
+    // ...
+  });
+
+  test('regression: invalid password shows error', async ({ page }) => {
+    // ...
+  });
+});
+```
+
+- Tag tests when they are added or refactored.
+- Prefer explicit tag labels over relying on folder structure alone.
 
 ## Selective Execution Using `--grep`
 
-- Run tagged tests with `npx playwright test --grep "@smoke"`.
-- Combine tags with regex: `--grep "(@smoke|@api)"`.
-- Exclude tags with `--grep-invert "@slow"` for quick runs.
+- Run smoke tests: `npx playwright test --grep "@smoke"`
+- Combine tags: `npx playwright test --grep "(@smoke|@api)"`
+- Exclude tags: `npx playwright test --grep-invert "@slow"`
 
-## Benefits of Organizing Test Suites
+## CI Pipeline Strategy
 
-- Faster feedback loops.
-- Easier triage of failures.
-- Better CI staging and targeted validation.
-- Clearer test ownership and maintenance.
+- PR builds: run fast smoke checks.
+- Merge or release pipelines: run broader regression suites.
+- Nightly or full-validation: include `@api`, `@ui`, and critical regression coverage.
 
-## Smoke vs Regression Strategy
+## Cross-Browser Execution
 
-- Keep smoke suites small and stable.
-- Use regression for deeper coverage and change impact.
-- Run smoke on every commit; run regression on nightly or before release.
+- Run across supported browsers: `npx playwright test --project=chromium --project=firefox --project=webkit`
+- Use browser-specific tags for targeted checks: `@webkit`, `@firefox`, `@chromium`.
+- Skip tests outside a browser context:
+
+```ts
+test('webkit-only: layout check', async ({ browserName }) => {
+  test.skip(browserName !== 'webkit', 'Only WebKit layout is relevant');
+  // ...
+});
+```
+
+- Browser-specific failures often indicate rendering differences, feature support, or timing variations.
+- Debug with project-specific runs, `--repeat-each`, Playwright traces, screenshots, and logs.
 
 ## API Test Categorization
 
-- Tag API tests separately from UI tests.
-- Use `@api` for backend-only verification and `@smoke` or `@regression` when API tests support a business flow.
-- Helps choose fast API checks for quick validation and broader API regression for stability.
-
-## Real-World Framework Usage
-
-- Define tags consistently in test names or `describe` blocks.
-- Use tags in CI to control stages: smoke on PRs, regression on merge or nightly.
-- Keep tag conventions documented for new team members.
+- Tag API tests separately from UI tests when possible.
+- Use `@api` for backend verification and `@smoke` or `@regression` when the API test supports a business flow.
+- This helps choose fast API checks for quick validation and broader API regression for stability.
 
 ## Common Tagging Mistakes
 
-- Using inconsistent tag names like `smoke` and `@smoke` interchangeably.
-- Tagging too many tests as smoke, which dilutes its purpose.
-- Relying on folder structure instead of explicit tags.
+- Inconsistent tag syntax (`smoke` vs `@smoke`).
+- Tagging too many tests as smoke.
 - Forgetting to update tags when test scope changes.
+- Using structure alone instead of explicit tags.
 
-## CI Pipeline Execution Using Tags
+## Common Interview Questions
 
-- Use tags to limit CI runs and save resources.
-- Example: PR builds run `--grep "@smoke"`, full pipelines run `--grep "@regression"`.
-- Tag-driven CI makes test runs more predictable and efficient.
+- What is a test tag?  
+  A label that lets you group and selectively run tests without changing implementation.
 
-> Tip: In interviews, explain tags as a lightweight way to route tests through development and CI without changing code structure.
+- How do you run a subset of tests?  
+  Use `npx playwright test --grep "<tag>"` and `--grep-invert` to exclude.
+
+- Smoke vs regression?  
+  Smoke is fast, critical validation; regression is broader coverage after changes.
+
+- How do you handle browser-specific tests?  
+  Use browser tags or `test.skip(browserName !== '<browser>')`, and run targeted `--project` executions.
+
+> Tip: In interviews, describe tags as a lightweight routing mechanism for development, CI staging, and suite reliability.
