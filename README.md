@@ -1,6 +1,6 @@
 # Playwright Automation Framework
 
-Playwright automation framework built using TypeScript and Page Object Model (POM) principles. This project focuses on reusable automation design, test stability, debugging workflows, and scalable test structure for modern UI automation testing.
+A practical Playwright automation framework built with TypeScript and Page Object Model patterns. The repository combines UI and API coverage, reusable fixtures, and documentation for automation engineering and interview preparedness.
 
 ---
 
@@ -9,32 +9,35 @@ Playwright automation framework built using TypeScript and Page Object Model (PO
 - Playwright (`@playwright/test`)
 - TypeScript
 - Node.js
-- Page Object Model (POM)
-- Data-Driven Testing
-- Git & GitHub
-- VS Code
+- Git
+- GitHub Actions
+- API Testing
+- Page Object Model
 
 ---
 
 ## Framework Features
 
-- Reusable Page Object Model structure
-- Data-driven testing using reusable datasets
-- Reusable waits and assertion utilities
-- Retry and timeout handling for flaky test prevention
-- Smart wait strategies and synchronization handling
-- Trace Viewer and debugging workflow support
-- Structured Playwright notes and interview preparation documentation
+- Page Object Model structure for UI clarity and reuse
+- Fixtures and environment configuration for consistent setup
+- Data-driven testing with shared datasets
+- API testing and hybrid API + UI flows
+- Tagging and selective execution with `--grep`
+- Retry and timeout management for stability
+- Debugging and reporting with traces and HTML artifacts
+- GitHub Actions CI integration for automated runs
+- Cross-browser execution support (Chromium, Firefox, WebKit)
 
 ---
 
 ## Automated Scenarios
 
-- Basic smoke validation flows
-- Navigation and content verification
-- Login navigation and validation workflows
-- Invalid login validation using data-driven testing
-- Multi-browser Playwright execution support
+- Smoke and regression validation flows
+- Login and authentication workflows
+- Data-driven invalid login verification
+- API endpoint validation and service checks
+- Hybrid API + UI test chaining
+- Cross-browser execution across Chromium, Firefox, and WebKit
 
 ---
 
@@ -42,80 +45,64 @@ Playwright automation framework built using TypeScript and Page Object Model (PO
 
 ```text
 pw-framework/
-│
-├── pages/                # Page Object classes
-├── tests/                # Test specifications
-├── fixtures/             # Reusable Playwright fixtures
-├── utils/                # Waits, assertions and helper utilities
-├── test-data/            # Reusable datasets
-├── Playwright-Notes/     # Learning notes and interview preparation
-├── playwright.config.ts  # Playwright configuration
-└── README.md
+├── api-tests/             # API-focused test cases
+├── api-utils/             # API helper functions and request setup
+├── config/                # Environment and test configuration
+├── fixtures/              # Reusable Playwright fixtures
+├── pages/                 # Page Object Model classes
+├── test-data/             # Reusable datasets
+├── tests/                 # UI test specifications
+├── utils/                 # Assertion and wait utilities
+├── Playwright-Notes/      # Learning notes
+├── playwright.config.ts   # Playwright configuration
 ```
 
 ---
 
-## Stability and Debugging
+## CI/CD
 
-This framework includes:
-- Retry handling
-- Custom timeout configuration
-- Smart synchronization strategies
-- Trace Viewer support
-- VS Code debugging workflows
-- Breakpoint-based execution analysis
+The repository is intended for GitHub Actions-based CI. The workflow runs Playwright tests, collects artifacts, and publishes HTML reports for results review.
+
+- GitHub Actions executes tests on push and PR events.
+- Report artifacts are produced for visibility and diagnostics.
+- Local execution is useful for debugging and faster iteration.
+- GitHub-hosted runners may encounter Cloudflare restrictions when targeting the Automation Exercise site, so local validation can be more reliable for that target.
+
+---
+
+## Learning and Documentation
+
+- `Playwright-Notes/` for automation design, tagging, and framework strategy
+- `private-notes/` for interview preparation and study material
+- `README.md` for repository overview and practical engineering context
+
+---
+
+## Future Improvements
+
+- Expand API coverage and service-level workflows
+- Add additional hybrid API + UI scenarios
+- Improve TypeScript typings and reusable helpers
+- Implement Jenkins pipeline support for enterprise CI
 
 ---
 
 ## How to Run Tests
 
-### Install dependencies
-
 ```bash
 npm install
-```
-
-### Run all tests
-
-```bash
 npx playwright test
-```
-
-### Run a specific test file
-
-```bash
-npx playwright test tests/day4-login.spec.ts
-```
-
-### Run tests in headed mode
-
-```bash
-npx playwright test tests/day4-login.spec.ts --project=chromium --headed
-```
-
-### Open Playwright HTML Report
-
-```bash
 npx playwright show-report
 ```
 
----
-
-## Learning Focus Areas
-
-This repository is being actively expanded with focus on:
-- Modern Playwright automation practices
-- API testing with Playwright
-- CI/CD integration
-- Framework scalability
-- Debugging and flaky test prevention
+Use `--project=chromium|firefox|webkit` for browser-specific runs and `--grep` to execute tagged subsets.
 
 ---
 
 ## Author
 
-Bharath S  
-QA Automation Engineer / SDET  
+Bharath S
+QA Automation Engineer | Playwright | Selenium | API Testing
 
 LinkedIn:  
 https://www.linkedin.com/in/bharath-s-76936724b/
