@@ -30,6 +30,12 @@ A practical Playwright automation framework built with TypeScript and Page Objec
 
 ---
 
+## Why This Project
+
+This repository was built to demonstrate modern SDET and automation engineering practices using Playwright and TypeScript. The focus is on framework design, maintainability, API and UI automation, CI/CD integration, test stability, and scalable automation patterns commonly used in enterprise projects.
+
+---
+
 ## Automated Scenarios
 
 - Smoke and regression validation flows
@@ -73,7 +79,6 @@ The repository is intended for GitHub Actions-based CI. The workflow runs Playwr
 ## Learning and Documentation
 
 - `Playwright-Notes/` for automation design, tagging, and framework strategy
-- `private-notes/` for interview preparation and study material
 - `README.md` for repository overview and practical engineering context
 
 ---
