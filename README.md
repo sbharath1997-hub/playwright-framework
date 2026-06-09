@@ -106,11 +106,13 @@ Use `--project=chromium|firefox|webkit` for browser-specific runs and `--grep` t
 
 ## Author
 
-Bharath S
-QA Automation Engineer | Playwright | Selenium | API Testing
+### Bharath S
 
-LinkedIn:  
+QA Automation Engineer  
+Playwright | Selenium | API Testing
+
+LinkedIn:
 https://www.linkedin.com/in/bharath-s-76936724b/
 
-GitHub:  
+GitHub:
 https://github.com/sbharath1997-hub/playwright-framework
