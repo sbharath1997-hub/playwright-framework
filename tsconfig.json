@@ -11,5 +11,15 @@
     "noEmit": true,
     "types": ["node"]
   },
-  "include": ["tests/**/*.ts", "pages/**/*.ts", "test-data/**/*.ts", "api-utils/**/*.ts", "playwright.config.ts"]
+  "include": [
+    "api-tests/**/*.ts",
+    "api-utils/**/*.ts",
+    "config/**/*.ts",
+    "fixtures/**/*.ts",
+    "pages/**/*.ts",
+    "test-data/**/*.ts",
+    "tests/**/*.ts",
+    "utils/**/*.ts",
+    "playwright.config.ts"
+  ]
 }

@@ -1,14 +1,9 @@
-import { test } from '@playwright/test';
-import { HomePage } from '../pages/homePage';
-import { LoginPage } from '../pages/loginPage';
+import { test } from '../fixtures/baseTest';
 import { invalidLoginDatasets } from '../test-data/loginData';
 
 test.describe('@regression Day 5 — data-driven login validation', () => {
   for (const dataset of invalidLoginDatasets) {
-    test(`shows login error for ${dataset.name}`, async ({ page }) => {
-      const homePage = new HomePage(page);
-      const loginPage = new LoginPage(page);
-
+    test(`shows login error for ${dataset.name}`, async ({ homePage, loginPage }) => {
       await homePage.openHomePage();
       await homePage.verifyHomePageLoaded();
       await homePage.clickSignupLogin();

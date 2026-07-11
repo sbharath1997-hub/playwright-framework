@@ -1,20 +1,15 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '../fixtures/baseTest';
 import createUser from '../api-utils/createUser';
-import { HomePage } from '../pages/homePage';
-import { LoginPage } from '../pages/loginPage';
 
 test.describe('@regression API + UI chaining', () => {
 
-  test('create user via API and use data in UI flow', async ({ request, page }) => {
+  test('create user via API and use data in UI flow', async ({ request, homePage, loginPage }) => {
 
     const createdUser = await createUser(request);
 
     expect(createdUser.name).toBe('Bharath');
 
     console.log('Created API user:', createdUser);
-
-    const homePage = new HomePage(page);
-    const loginPage = new LoginPage(page);
 
     await homePage.openHomePage();
 

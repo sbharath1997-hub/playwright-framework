@@ -1,32 +1,22 @@
-
-import { test, expect } from '@playwright/test';
-import { HomePage } from '../pages/homePage';
-import { LoginPage } from '../pages/loginPage';
+import { test } from '../fixtures/baseTest';
 
 test.describe('Hooks and shared setup', () => {
-    	let home: HomePage;
-	test.beforeEach(async ({ page }) => {
-		home = new HomePage(page);
-		await home.openHomePage();
-		await home.verifyHomePageLoaded();
-	});
+  test.beforeEach(async ({ homePage }) => {
+    await homePage.openHomePage();
+    await homePage.verifyHomePageLoaded();
+  });
 
-	test('navigate to signup / login and verify login page', async ({ page }) => {
-		
-		await home.clickSignupLogin();
-        
-		const login = new LoginPage(page);
-		await login.verifyLoginPage();
-	});
+  test('navigate to signup / login and verify login page', async ({ homePage, loginPage }) => {
+    await homePage.clickSignupLogin();
 
-	test('verify required-field validation on empty login submission', async ({ page }) => {
-		
-		await home.clickSignupLogin();
-        
-		const login = new LoginPage(page);
-		// Attempt to submit empty credentials to trigger HTML5 required validation
-		await login.loginWithCredentials('', '');
-		await login.verifyRequiredFieldValidationForEmptyCredentials();
-	});
+    await loginPage.verifyLoginPage();
+  });
+
+  test('verify required-field validation on empty login submission', async ({ homePage, loginPage }) => {
+    await homePage.clickSignupLogin();
+
+    // Attempt to submit empty credentials to trigger HTML5 required validation
+    await loginPage.loginWithCredentials('', '');
+    await loginPage.verifyRequiredFieldValidationForEmptyCredentials();
+  });
 });
-

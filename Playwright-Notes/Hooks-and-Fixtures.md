@@ -126,6 +126,65 @@ test('uses homePage fixture', async ({ homePage }) => {
 
 Interview point: fixtures reduce duplication and centralize creation logic. Avoid outer-scope initialization; keep state inside fixture callbacks.
 
+## Typed Page Object Fixtures
+
+Typed fixtures are a clean way to inject page objects into Playwright tests.
+- Define the fixture contract with a TypeScript type.
+- Extend Playwright's base test with `base.extend<MyFixtures>()`.
+- Create page object instances once in the fixture layer.
+- Consume them directly in specs through the test callback parameters.
+
+Example:
+```ts
+type MyFixtures = {
+  homePage: HomePage;
+  loginPage: LoginPage;
+};
+
+export const test = base.extend<MyFixtures>({
+  homePage: async ({ page }, use) => {
+    await use(new HomePage(page));
+  },
+
+  loginPage: async ({ page }, use) => {
+    await use(new LoginPage(page));
+  },
+});
+```
+
+Before:
+```ts
+test('opens login page', async ({ page }) => {
+  const homePage = new HomePage(page);
+  const loginPage = new LoginPage(page);
+
+  await homePage.openHomePage();
+  await loginPage.verifyLoginPage();
+});
+```
+
+After:
+```ts
+test('opens login page', async ({ homePage, loginPage }) => {
+  await homePage.openHomePage();
+  await loginPage.verifyLoginPage();
+});
+```
+
+Benefits:
+- Tests focus on behavior instead of object setup.
+- Page object creation stays consistent across specs.
+- TypeScript knows the exact type of each injected fixture.
+- Adding future page objects becomes a fixture change, not repeated spec boilerplate.
+
+Trade-off:
+- New engineers must understand where fixtures are defined before using them.
+- Fixture names should stay clear and stable because tests depend on them by name.
+
+Real-world use: typed fixtures are useful in enterprise suites where many tests need the same pages, API clients, authenticated sessions, or data builders.
+
+Interview point: `base.extend<MyFixtures>()` combines Playwright dependency injection with TypeScript generics. It lets the framework provide typed page objects while keeping tests readable and consistent.
+
 ## Shared Setup
 
 Shared setup is about reusable test foundations.
