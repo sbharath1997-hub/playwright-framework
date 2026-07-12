@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { Environment } from '../config/environment';
+import type { CreateUserRequest, CreateUserResponse } from '../api-utils/userApiTypes';
 
 test.describe('API Testing - Create User', () => {
 
   test('should create a user successfully', async ({ request }) => {
 
-    const requestBody = {
+    const requestBody: CreateUserRequest = {
       name: 'Bharath',
       job: 'SDET'
     };
@@ -22,7 +23,7 @@ test.describe('API Testing - Create User', () => {
 
     expect(response.status()).toBe(201);
 
-    const responseBody = await response.json();
+    const responseBody = await response.json() as CreateUserResponse;
 
     expect(responseBody.name).toBe('Bharath');
 

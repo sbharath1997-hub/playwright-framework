@@ -1,11 +1,12 @@
 import { APIRequestContext, expect } from '@playwright/test';
 import { Environment } from '../config/environment';
+import type { CreateUserRequest, CreateUserResponse } from './userApiTypes';
 
 export default async function createUser(
   request: APIRequestContext
-) {
+): Promise<CreateUserResponse> {
 
-  const requestBody = {
+  const requestBody: CreateUserRequest = {
     name: 'Bharath',
     job: 'SDET'
   };
@@ -22,5 +23,5 @@ export default async function createUser(
 
   expect(response.status()).toBe(201);
 
-  return await response.json();
+  return await response.json() as CreateUserResponse;
 }

@@ -56,7 +56,54 @@
 - Validate nested properties when contract requires it:
   - `expect(body.address.city).toBe('Gwenborough')`
 
-## 6. API Chaining
+## 6. Typed API Contracts
+
+Typed API contracts describe the expected request and response payload shapes.
+- Request types document what the test sends.
+- Response types document what the API should return.
+- Helper return types allow API data to stay typed when reused in hybrid UI flows.
+
+Example:
+```ts
+export type CreateUserRequest = {
+  name: string;
+  job: string;
+};
+
+export type CreateUserResponse = CreateUserRequest & {
+  id: number;
+};
+```
+
+When parsing JSON, Playwright returns untyped data by default:
+
+```ts
+const responseBody = await response.json() as CreateUserResponse;
+```
+
+For reusable helpers:
+
+```ts
+export default async function createUser(
+  request: APIRequestContext
+): Promise<CreateUserResponse> {
+  // request logic
+}
+```
+
+Benefits:
+- Tests get autocomplete and compile-time field checks.
+- API helpers become self-documenting.
+- Hybrid tests can safely reuse API-created data.
+- Mistyped fields are easier to catch during TypeScript checks.
+
+Trade-off:
+- Type assertions do not validate the response at runtime.
+- Runtime schema validation can be added later for stronger contract testing.
+
+Interview point: typed API models improve reliability at the TypeScript level, while runtime validation tools verify the actual response during execution. They solve related but different problems.
+
+## 7. API Chaining
 
 - Chain API calls to keep tests efficient and maintain state.
 - Example flows:
@@ -65,7 +112,7 @@
 - API chaining is a practical technique for building end-to-end scenarios without fragile UI setup.
 - Use generated API data inside later steps to keep tests deterministic.
 
-## 7. Hybrid API + UI Testing
+## 8. Hybrid API + UI Testing
 
 - Hybrid tests combine backend setup/validation with UI verification.
 - Common patterns:
@@ -77,7 +124,7 @@
   - broader coverage across frontend and backend
 - Keep API and UI layers separate but interoperable.
 
-## 8. Framework Integration
+## 9. Framework Integration
 
 - Organize automation code for clarity:
   - `api-utils/` for request helpers and reusable API logic
@@ -87,24 +134,27 @@
 - Shared helpers should manage:
   - base URL and headers
   - auth tokens
-  - JSON parsing and result assertions
+  - JSON parsing, typed payloads, and result assertions
 - Reusable helpers reduce duplication and make failures easier to fix.
 
-## 9. Best Practices
+## 10. Best Practices
 
 - Keep tests concise and behavior-focused.
 - Use clear naming such as:
   - `should fetch users successfully`
   - `should create a new user and return 201`
 - Validate backend contracts early to catch issues before UI reliance.
+- Add TypeScript request and response models for important API payloads.
 - Prefer real persistence for critical hybrid tests over mocks when verifying integration behavior.
 - Archive stale compiled artifacts and restart the runner after major code changes if you encounter mysterious behavior.
 - Use Copilot for draft code, but always verify generated requests and assertions against actual API contracts.
 
-## 10. Common Interview Questions
+## 11. Common Interview Questions
 
 - What is `APIRequestContext` and why is it useful in Playwright?
 - How do you validate a response body in Playwright API tests?
+- How do TypeScript API models improve Playwright API tests?
+- What is the difference between TypeScript typing and runtime schema validation?
 - When should you use `toMatchObject` instead of exact object matching?
 - How do you combine API and UI testing in the same flow?
 - What are the benefits of using API setup in UI tests?

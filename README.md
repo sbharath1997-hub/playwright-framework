@@ -19,8 +19,9 @@ A practical Playwright automation framework built with TypeScript and Page Objec
 ## Framework Features
 
 - Page Object Model structure for UI clarity and reuse
-- Fixtures and environment configuration for consistent setup
+- Typed fixtures and centralized environment configuration for consistent setup
 - Data-driven testing with shared datasets
+- Typed API request/response models for safer API validation
 - API testing and hybrid API + UI flows
 - Tagging and selective execution with `--grep`
 - Retry and timeout management for stability
@@ -51,16 +52,16 @@ This repository was built to demonstrate modern SDET and automation engineering 
 
 ```text
 pw-framework/
-├── api-tests/             # API-focused test cases
-├── api-utils/             # API helper functions and request setup
-├── config/                # Environment and test configuration
-├── fixtures/              # Reusable Playwright fixtures
-├── pages/                 # Page Object Model classes
-├── test-data/             # Reusable datasets
-├── tests/                 # UI test specifications
-├── utils/                 # Assertion and wait utilities
-├── Playwright-Notes/      # Learning notes
-├── playwright.config.ts   # Playwright configuration
+|-- api-tests/             # API-focused test cases
+|-- api-utils/             # API helpers and typed API payload models
+|-- config/                # Environment and test configuration
+|-- fixtures/              # Reusable typed Playwright fixtures
+|-- pages/                 # Page Object Model classes
+|-- test-data/             # Reusable datasets
+|-- tests/                 # UI and hybrid test specifications
+|-- utils/                 # Assertion and wait utilities
+|-- Playwright-Notes/      # Learning notes
+|-- playwright.config.ts   # Playwright configuration
 ```
 
 ---
@@ -87,7 +88,7 @@ The repository is intended for GitHub Actions-based CI. The workflow runs Playwr
 
 - Expand API coverage and service-level workflows
 - Add additional hybrid API + UI scenarios
-- Improve TypeScript typings and reusable helpers
+- Add runtime schema validation for stronger API contract checks
 - Implement Jenkins pipeline support for enterprise CI
 
 ---
