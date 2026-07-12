@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { Environment } from '../config/environment';
 
 test.describe('API Testing - Create User', () => {
 
@@ -10,7 +11,7 @@ test.describe('API Testing - Create User', () => {
     };
 
     const response = await request.post(
-      'https://jsonplaceholder.typicode.com/users',
+      `${Environment.api.jsonPlaceholderBaseUrl}/users`,
       {
         data: requestBody,
         headers: {

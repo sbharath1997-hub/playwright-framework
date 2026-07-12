@@ -1,4 +1,5 @@
 import { APIRequestContext, expect } from '@playwright/test';
+import { Environment } from '../config/environment';
 
 export default async function createUser(
   request: APIRequestContext
@@ -10,7 +11,7 @@ export default async function createUser(
   };
 
   const response = await request.post(
-    'https://jsonplaceholder.typicode.com/users',
+    `${Environment.api.jsonPlaceholderBaseUrl}/users`,
     {
       data: requestBody,
       headers: {

@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { Environment } from './config/environment';
 
 export default defineConfig({
   testDir: '.',
@@ -9,7 +10,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], ['list']],
   timeout: 30000,
   use: {
-    baseURL: 'https://playwright.dev',
+    baseURL: Environment.ui.playwrightBaseUrl,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },

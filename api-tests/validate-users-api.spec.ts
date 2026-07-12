@@ -1,8 +1,9 @@
 import { test, expect } from '@playwright/test';
+import { Environment } from '../config/environment';
 
 test.describe('@api @regression API Testing - Validate User', () => {
   test('should validate user response structure and data', async ({ request }) => {
-    const response = await request.get('https://jsonplaceholder.typicode.com/users/1');
+    const response = await request.get(`${Environment.api.jsonPlaceholderBaseUrl}/users/1`);
 
     expect(response.status()).toBe(200);
 

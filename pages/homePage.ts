@@ -43,7 +43,7 @@ export class HomePage {
 
   // automationexercise.com
   async openHomePage(): Promise<void> {
-    await this.page.goto(Environment.automationExerciseUrl);
+    await this.page.goto(Environment.ui.automationExerciseBaseUrl);
   }
 
   async verifyHomePageLoaded(): Promise<void> {
