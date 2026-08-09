@@ -1,6 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 import { Environment } from './config/environment';
 
+const googlePhotosManualSpec = /.*google-photos-storage-cleanup\.spec\.ts/;
+
 export default defineConfig({
   testDir: '.',
   fullyParallel: true,
@@ -15,8 +17,36 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    { name: 'chromium', testIgnore: googlePhotosManualSpec, use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', testIgnore: googlePhotosManualSpec, use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', testIgnore: googlePhotosManualSpec, use: { ...devices['Desktop Safari'] } },
+    {
+      name: 'google-photos-chromium',
+      testMatch: googlePhotosManualSpec,
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: Environment.ui.googlePhotosBaseUrl,
+        headless: false,
+        actionTimeout: 15000,
+        navigationTimeout: 30000,
+        trace: 'off',
+        screenshot: 'off',
+        video: 'off',
+      },
+    },
+    {
+      name: 'google-photos-firefox',
+      testMatch: googlePhotosManualSpec,
+      use: {
+        ...devices['Desktop Firefox'],
+        baseURL: Environment.ui.googlePhotosBaseUrl,
+        headless: false,
+        actionTimeout: 15000,
+        navigationTimeout: 30000,
+        trace: 'off',
+        screenshot: 'off',
+        video: 'off',
+      },
+    },
   ],
 });

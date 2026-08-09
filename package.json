@@ -7,7 +7,10 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
-    "report": "playwright show-report"
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit",
+    "google-photos:scan": "playwright test tests/google-photos-storage-cleanup.spec.ts --project=google-photos-chromium --headed --workers=1",
+    "google-photos:scan:firefox": "playwright test tests/google-photos-storage-cleanup.spec.ts --project=google-photos-firefox --headed --workers=1"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",

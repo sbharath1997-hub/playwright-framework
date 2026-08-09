@@ -8,3 +8,9 @@ node_modules/
 .env.*
 private-notes/
 Resume_Bharath.docx
+.auth/
+.browser-profiles/
+google-photos-results/
+reports/google-photos/
+evidence/google-photos/
+*.storageState.json

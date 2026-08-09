@@ -16,10 +16,12 @@
     "api-utils/**/*.ts",
     "config/**/*.ts",
     "fixtures/**/*.ts",
+    "models/**/*.ts",
     "pages/**/*.ts",
     "test-data/**/*.ts",
     "tests/**/*.ts",
     "utils/**/*.ts",
+    "tools/**/*.ts",
     "playwright.config.ts"
   ]
 }

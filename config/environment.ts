@@ -6,6 +6,9 @@ export type EnvironmentConfig = {
     playwrightBaseUrl: string;
     automationExerciseBaseUrl: string;
     exampleBaseUrl: string;
+    googlePhotosBaseUrl: string;
+    googlePhotosStorageManagementUrl: string;
+    googlePhotosLargePhotosVideosUrl: string;
   };
   api: {
     jsonPlaceholderBaseUrl: string;
@@ -18,6 +21,9 @@ export const Environment = {
     playwrightBaseUrl: 'https://playwright.dev',
     automationExerciseBaseUrl: 'https://automationexercise.com/',
     exampleBaseUrl: 'https://example.com',
+    googlePhotosBaseUrl: 'https://photos.google.com/',
+    googlePhotosStorageManagementUrl: 'https://photos.google.com/quotamanagement',
+    googlePhotosLargePhotosVideosUrl: 'https://photos.google.com/quotamanagement/large',
   },
   api: {
     jsonPlaceholderBaseUrl: 'https://jsonplaceholder.typicode.com',
