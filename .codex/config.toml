@@ -1,8 +1,0 @@
-# Start Codex from the pw-framework root so these project-relative paths resolve.
-# Register the official server before spawning the specialized agents.
-[mcp_servers.playwright-test]
-command = "node"
-args = ["node_modules/playwright/cli.js", "run-test-mcp-server", "--headless", "--config", "playwright.agents.config.ts"]
-startup_timeout_sec = 30
-tool_timeout_sec = 90
-required = true
