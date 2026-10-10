@@ -1,0 +1,16 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+  await page.getByRole('heading', { name: 'Playwright enables reliable' }).click();
+  await page.getByRole('link', { name: 'Docs' }).click();
+  await page.getByRole('heading', { name: 'Installation' }).click();
+  await page.getByRole('heading', { name: 'Installation' }).click();
+  await page.getByText('InstallationIntroduction').click();
+  await page.getByRole('heading', { name: 'Installation' }).dblclick();
+  await page.getByRole('navigation', { name: 'Breadcrumbs' }).getByText('Installation').click({
+    clickCount: 3
+  });
+  await page.getByRole('navigation', { name: 'Breadcrumbs' }).getByText('Installation').click();
+  await page.getByText('Playwright Test is an end-to-').click();
+});

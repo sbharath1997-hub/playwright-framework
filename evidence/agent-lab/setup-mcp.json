@@ -1,0 +1,21 @@
+{
+  "startedAt": "2026-10-10T10:36:58.616Z",
+  "nodeVersion": "v24.13.0",
+  "playwrightVersion": "1.64.0",
+  "command": "npm.cmd run agents:check",
+  "checks": [
+    "MCP initialize (Playwright Test Runner)",
+    "7 required Planner/Generator/browser tools available",
+    "planner_setup_page",
+    "browser_snapshot",
+    "Planner seed exposes live home page and Docs navigation",
+    "browser_close",
+    "generator_setup_page",
+    "generator_read_log",
+    "Generator setup and recording log work",
+    "browser_close"
+  ],
+  "scope": "MCP and seed setup verification only; no LLM agent invocation or recording",
+  "status": "passed",
+  "finishedAt": "2026-10-10T10:37:12.324Z"
+}

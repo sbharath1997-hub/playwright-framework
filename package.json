@@ -9,11 +9,15 @@
     "test:ui": "playwright test --ui",
     "report": "playwright show-report",
     "typecheck": "tsc --noEmit",
+    "agents:check": "node scripts/verify-playwright-agents.cjs",
+    "agents:seed": "playwright test --config=playwright.agents.config.ts seed.spec.ts --project=chromium",
+    "agents:test": "playwright test --config=playwright.agents.config.ts --project=chromium",
+    "agents:codegen": "playwright codegen --browser=chromium --target=playwright-test --output=tests/agent-lab/codegen-docs.spec.ts https://playwright.dev",
     "google-photos:scan": "playwright test tests/google-photos-storage-cleanup.spec.ts --project=google-photos-chromium --headed --workers=1",
     "google-photos:scan:firefox": "playwright test tests/google-photos-storage-cleanup.spec.ts --project=google-photos-firefox --headed --workers=1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1",
+    "@playwright/test": "1.64.0",
     "@types/node": "^26.1.1",
     "typescript": "^5.7.2"
   }

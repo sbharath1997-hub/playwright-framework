@@ -3,20 +3,22 @@ import { Environment } from '../config/environment';
 
 /** Home page actions for supported training sites. */
 export class HomePage {
-  
-
   constructor(private readonly page: Page) {}
 
   private mainNav(): Locator {
-    return this.page.getByRole('navigation', { name: 'Main' });
+    return this.page.getByRole('navigation', { name: 'Main', exact: true });
   }
 
   private docsNavLink(): Locator {
     return this.mainNav().getByRole('link', { name: 'Docs', exact: true });
   }
 
-  private mainContent(): Locator {
-    return this.page.getByRole('main');
+  private installationHeading(): Locator {
+    return this.page.getByRole('main').getByRole('heading', { name: 'Installation', exact: true });
+  }
+
+  private getStartedLink(): Locator {
+    return this.page.getByRole('banner').getByRole('link', { name: 'Get started', exact: true });
   }
 
   private signupLoginLink(): Locator {
@@ -33,12 +35,24 @@ export class HomePage {
   }
 
   async clickDocs(): Promise<void> {
-    await this.docsNavLink().click();
+    const docsLink = this.docsNavLink();
+    await expect(this.mainNav()).toBeVisible();
+    await expect(docsLink).toBeVisible();
+    await expect(docsLink).toHaveAttribute('href', '/docs/intro');
+    await docsLink.click();
+  }
+
+  async clickGetStarted(): Promise<void> {
+    const getStartedLink = this.getStartedLink();
+    await expect(getStartedLink).toBeVisible();
+    await expect(getStartedLink).toHaveAttribute('href', '/docs/intro');
+    await getStartedLink.click();
   }
 
   async verifyDocsPage(): Promise<void> {
-    await expect(this.page).toHaveURL(/docs/);
-    await expect(this.mainContent()).toContainText('Installation');
+    await expect(this.page).toHaveURL(new URL('/docs/intro', Environment.ui.playwrightBaseUrl).href);
+    await expect(this.page).toHaveTitle('Installation | Playwright');
+    await expect(this.installationHeading()).toBeVisible();
   }
 
   // automationexercise.com

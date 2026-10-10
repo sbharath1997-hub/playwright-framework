@@ -1,0 +1,25 @@
+// spec: specs/playwright-docs.plan.md
+// review: specs/playwright-docs.plan-review.md
+// seed: tests/agent-lab/seed.spec.ts
+import { test, expect } from '../../../fixtures/baseTest';
+
+test.describe('Documentation entry points — intentional comparison coverage', () => {
+  test('Home Get started opens Installation — intentional comparison coverage', async ({ page }) => {
+    // 1. Starting state: independently navigate directly to https://playwright.dev/ using the test-scoped page.
+    await page.goto('https://playwright.dev/');
+    await expect(page).toHaveURL('https://playwright.dev/');
+
+    // 2. Locate the home hero link with exact accessible name Get started and verify visibility and href.
+    const getStartedLink = page.getByRole('banner').getByRole('link', { name: 'Get started', exact: true });
+    await expect(getStartedLink).toBeVisible();
+    await expect(getStartedLink).toHaveAttribute('href', '/docs/intro');
+
+    // 3. Click home Get started and verify the destination URL and page title.
+    await getStartedLink.click();
+    await expect(page).toHaveURL('https://playwright.dev/docs/intro');
+    await expect(page).toHaveTitle('Installation | Playwright');
+
+    // 4. Verify the heading with exact accessible name Installation is visible.
+    await expect(page.getByRole('main').getByRole('heading', { name: 'Installation', exact: true })).toBeVisible();
+  });
+});

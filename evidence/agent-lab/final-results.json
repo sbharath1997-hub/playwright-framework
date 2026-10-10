@@ -1,0 +1,122 @@
+{
+  "verifiedDate": "2026-10-10",
+  "timezone": "Asia/Calcutta",
+  "source": "Playwright JSON reporter; local Chromium execution",
+  "command": "npm.cmd run agents:test",
+  "stats": {
+    "startTime": "2026-10-10T13:47:17.043Z",
+    "duration": 13719.806,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "counts": {
+    "businessTests": 3,
+    "setupSeedTests": 1
+  },
+  "tests": [
+    {
+      "file": "codegen-docs.spec.ts",
+      "title": "Codegen comparison: Docs opens Installation using the existing POM",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 8554,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "generated/playwright-docs-get-started.spec.ts",
+      "title": "Home Get started opens Installation — intentional comparison coverage",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1386,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "generated/playwright-docs-main-navigation.spec.ts",
+      "title": "Docs in Main navigation opens Installation — intentional comparison coverage",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1459,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "file": "seed.spec.ts",
+      "title": "Playwright docs agent seed",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1165,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "scope": "Planner and Generator invoked in user's Codex CLI; manual Codegen recording; all final source human-refined with coaching. No cross-browser, CI, authentication, error-injection or whole-framework pass claimed.",
+  "previousFinalRun": {
+    "stats": {
+      "startTime": "2026-10-10T13:40:05.623Z",
+      "duration": 5288.507,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "result": "4 passed (5.3s) before the Codegen source reverted to the learner's earlier attempt."
+  },
+  "sourceHashes": [
+    {
+      "file": "tests/agent-lab/codegen-docs.spec.ts",
+      "sha256": "182ebaaa8ec59a2627e6c4b0561debc52a25bbab8f7c0f9c4449f808889234d4"
+    },
+    {
+      "file": "tests/agent-lab/generated/playwright-docs-main-navigation.spec.ts",
+      "sha256": "9d1eb9ea9fa0a96294e492da65bd415107fbbca31b0410ed219e810f081d6e42"
+    },
+    {
+      "file": "tests/agent-lab/generated/playwright-docs-get-started.spec.ts",
+      "sha256": "4d0c6edc6433403169d95b3ce0dedc24800876768efe7b0a93f300bedd1c1d75"
+    },
+    {
+      "file": "tests/agent-lab/seed.spec.ts",
+      "sha256": "43cde7b7f855a71e9cdbfe9482a7cc92e5ca579637797ae04bf3e3d15e35a2ed"
+    },
+    {
+      "file": "pages/homePage.ts",
+      "sha256": "7e046c0ae95e005079600378daeeacd24cb79f5b24e3abd537968eedfdd383f6"
+    },
+    {
+      "file": "fixtures/baseTest.ts",
+      "sha256": "93975b76e8a8669bcc4af229beb41ac9ba8a2edbb61524e6f9cc8353cc3014f9"
+    },
+    {
+      "file": "playwright.agents.config.ts",
+      "sha256": "efcf8cc0908bdf453c422ca7a97f864d546ea11923a64bdd0c4c375d8ac84f0f"
+    }
+  ]
+}

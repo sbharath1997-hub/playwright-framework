@@ -13,6 +13,8 @@ A practical Playwright automation framework built with TypeScript and Page Objec
 - GitHub Actions
 - API Testing
 - Page Object Model
+- Playwright Test Agents (Planner and Generator)
+- Playwright Codegen
 - Local-only browser session tooling
 
 ---
@@ -29,6 +31,7 @@ A practical Playwright automation framework built with TypeScript and Page Objec
 - Debugging and reporting with traces and HTML artifacts
 - GitHub Actions CI integration for automated runs
 - Cross-browser execution support (Chromium, Firefox, WebKit)
+- Reviewed AI-generated and recorded tests with preserved plans, raw outputs and local execution evidence
 - Local-only Google Photos Storage Cleanup Assistant for read-only storage review
 
 ---
@@ -48,6 +51,7 @@ This repository was built to demonstrate modern SDET and automation engineering 
 - Hybrid API + UI test chaining
 - Cross-browser execution across Chromium, Firefox, and WebKit
 - Read-only Google Photos Large photos & videos metadata scan with local JSON output
+- Documentation navigation through Docs and Get started, with an intentional Test Agents/Codegen comparison lab
 
 ---
 
@@ -123,9 +127,10 @@ pw-framework/
 
 ## CI/CD
 
-The repository is intended for GitHub Actions-based CI. The workflow runs Playwright tests, collects artifacts, and publishes HTML reports for results review.
+The current GitHub Actions workflow runs API-tagged Playwright tests and uploads the HTML report as a workflow artifact.
 
-- GitHub Actions executes tests on push and PR events.
+- GitHub Actions runs on pushes to `main`, using `npx playwright test --grep "@api"`.
+- The documentation UI lab is verified locally; it is not part of the current CI job.
 - Report artifacts are produced for visibility and diagnostics.
 - Local execution is useful for debugging and faster iteration.
 - GitHub-hosted runners may encounter Cloudflare restrictions when targeting the Automation Exercise site, so local validation can be more reliable for that target.
@@ -137,6 +142,44 @@ The repository is intended for GitHub Actions-based CI. The workflow runs Playwr
 
 - `Playwright-Notes/` for automation design, tagging, and framework strategy
 - `README.md` for repository overview and practical engineering context
+
+### Playwright Test Agents and Codegen practice
+
+Playwright is pinned to `1.64.0`. Official Codex Planner and Generator definitions
+are initialized in `.codex/agents/` (the initializer also supplies Healer).
+The practice seed reuses `HomePage` and the existing typed fixture. A Chromium-only
+lab configuration and commands are available:
+
+```powershell
+npm.cmd run agents:seed
+npm.cmd run agents:check
+npm.cmd run agents:codegen
+npm.cmd run agents:test
+```
+
+Completed locally on 10 October 2026: Planner explored Docs and Get started and
+saved a reviewed plan; Generator produced two initial tests; a manual Codegen
+recording captured the Docs flow. Raw outputs were preserved before human,
+coach-assisted refinement into the existing HomePage and typed fixtures.
+
+Final verification: **4 lab tests passed (13.7s)** in Chromium with zero retries:
+three business tests covering two distinct paths, plus one setup seed. The three
+existing documentation smoke tests also passed (2.7s); TypeScript checking passed.
+Comparison overlap is intentional, not additional unique scenario coverage.
+
+- [Original Planner plan](specs/playwright-docs.plan.md) and [human review](specs/playwright-docs.plan-review.md)
+- [Lab guide and learning notes](Playwright-Notes/Test-Agents-Codegen-Lab.md)
+- [Generator execution evidence](evidence/agent-lab/generator-results.md)
+- [Codegen comparison and missing-assertion lesson](evidence/agent-lab/codegen-review.md)
+- [Final results and manual Git handoff](evidence/agent-lab/final-verification.md)
+- [Machine-readable final results](evidence/agent-lab/final-results.json)
+- [Career wording and interview answers](Playwright-Notes/Test-Agents-Career-Handoff.md)
+
+Codegen requires manual browser interactions. Runtime reports/traces stay ignored;
+sanitized evidence and original `.ts.txt` outputs can be tracked under
+`evidence/agent-lab/`. This is personal-project experience, not a production rollout.
+The lab was not run in CI; the existing GitHub Actions workflow runs the `@api`
+subset. No GitHub publication is performed automatically.
 
 ---
 
